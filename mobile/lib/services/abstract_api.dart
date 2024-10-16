@@ -10,12 +10,12 @@ abstract class AbstractApi<T> {
 
   Future<String> getAll() async {
     var response = await http.get(Uri.parse('$_baseUrl/$_resource'));
-    return response.body;
+    return utf8.decode(response.bodyBytes);
   }
 
   Future<String> getOne(String id) async {
     var response = await http.get(Uri.parse('$_baseUrl/$_resource/$id'));
-    return response.body;
+    return utf8.decode(response.bodyBytes);
   }
 
   Future<String> create(Object body) async {
@@ -26,7 +26,7 @@ abstract class AbstractApi<T> {
       },
       body: jsonEncode(body),
     );
-    return response.body;
+    return utf8.decode(response.bodyBytes);
   }
 
   Future<String> update(String id, Object body) async {
@@ -37,11 +37,11 @@ abstract class AbstractApi<T> {
       },
       body: jsonEncode(body),
     );
-    return response.body;
+    return utf8.decode(response.bodyBytes);
   }
 
   Future<String> delete(String id) async {
     var response = await http.delete(Uri.parse("$_baseUrl/$_resource/$id"));
-    return response.body;
+    return utf8.decode(response.bodyBytes);
   }
 }
